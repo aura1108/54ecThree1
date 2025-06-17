@@ -13,4 +13,5 @@ export type UserDetailOrderByInput = {
   phone?: SortOrder;
   pinCode?: SortOrder;
   updatedAt?: SortOrder;
+  userIdId?: SortOrder;
 };

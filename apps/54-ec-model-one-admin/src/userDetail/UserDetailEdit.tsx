@@ -6,8 +6,8 @@ import {
   EditProps,
   TextInput,
   DateTimeInput,
-  ReferenceArrayInput,
-  SelectArrayInput,
+  ReferenceInput,
+  SelectInput,
 } from "react-admin";
 
 import { UserAuthTitle } from "../userAuth/UserAuthTitle";
@@ -25,13 +25,9 @@ export const UserDetailEdit = (props: EditProps): React.ReactElement => {
         <TextInput label="pan" source="pan" />
         <TextInput label="phone" source="phone" />
         <TextInput label="pinCode" source="pinCode" />
-        <ReferenceArrayInput source="userId" reference="UserAuth">
-          <SelectArrayInput
-            optionText={UserAuthTitle}
-            parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-            format={(value: any) => value && value.map((v: any) => v.id)}
-          />
-        </ReferenceArrayInput>
+        <ReferenceInput source="userId.id" reference="UserAuth" label="userId">
+          <SelectInput optionText={UserAuthTitle} />
+        </ReferenceInput>
       </SimpleForm>
     </Edit>
   );

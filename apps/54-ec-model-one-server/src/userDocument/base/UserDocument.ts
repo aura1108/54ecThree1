@@ -94,12 +94,11 @@ class UserDocument {
 
   @ApiProperty({
     required: true,
-    type: () => [UserAuth],
+    type: () => UserAuth,
   })
   @ValidateNested()
   @Type(() => UserAuth)
-  @IsOptional()
-  userId?: Array<UserAuth>;
+  userId?: UserAuth;
 }
 
 export { UserDocument as UserDocument };

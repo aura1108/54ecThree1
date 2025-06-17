@@ -13,5 +13,5 @@ export type UserDetail = {
   phone: string;
   pinCode: string;
   updatedAt: Date;
-  userId?: Array<UserAuth>;
+  userId?: UserAuth;
 };

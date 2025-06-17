@@ -17,7 +17,7 @@ import {
   IsOptional,
   ValidateNested,
 } from "class-validator";
-import { UserAuthUpdateManyWithoutUserDocumentsInput } from "./UserAuthUpdateManyWithoutUserDocumentsInput";
+import { UserAuthWhereUniqueInput } from "../../userAuth/base/UserAuthWhereUniqueInput";
 import { Type } from "class-transformer";
 
 @InputType()
@@ -72,15 +72,15 @@ class UserDocumentUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => UserAuthUpdateManyWithoutUserDocumentsInput,
+    type: () => UserAuthWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => UserAuthUpdateManyWithoutUserDocumentsInput)
+  @Type(() => UserAuthWhereUniqueInput)
   @IsOptional()
-  @Field(() => UserAuthUpdateManyWithoutUserDocumentsInput, {
+  @Field(() => UserAuthWhereUniqueInput, {
     nullable: true,
   })
-  userId?: UserAuthUpdateManyWithoutUserDocumentsInput;
+  userId?: UserAuthWhereUniqueInput;
 }
 
 export { UserDocumentUpdateInput as UserDocumentUpdateInput };

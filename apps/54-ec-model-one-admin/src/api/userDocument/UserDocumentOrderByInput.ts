@@ -8,4 +8,5 @@ export type UserDocumentOrderByInput = {
   pdf2?: SortOrder;
   pdf3?: SortOrder;
   updatedAt?: SortOrder;
+  userIdId?: SortOrder;
 };

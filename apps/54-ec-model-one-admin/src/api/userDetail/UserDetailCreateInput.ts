@@ -1,4 +1,4 @@
-import { UserAuthCreateNestedManyWithoutUserDetailsInput } from "./UserAuthCreateNestedManyWithoutUserDetailsInput";
+import { UserAuthWhereUniqueInput } from "../userAuth/UserAuthWhereUniqueInput";
 
 export type UserDetailCreateInput = {
   address: string;
@@ -10,5 +10,5 @@ export type UserDetailCreateInput = {
   pan: string;
   phone: string;
   pinCode: string;
-  userId?: UserAuthCreateNestedManyWithoutUserDetailsInput;
+  userId: UserAuthWhereUniqueInput;
 };

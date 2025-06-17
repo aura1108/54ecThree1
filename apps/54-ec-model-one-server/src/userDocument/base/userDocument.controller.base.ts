@@ -22,9 +22,6 @@ import { UserDocument } from "./UserDocument";
 import { UserDocumentFindManyArgs } from "./UserDocumentFindManyArgs";
 import { UserDocumentWhereUniqueInput } from "./UserDocumentWhereUniqueInput";
 import { UserDocumentUpdateInput } from "./UserDocumentUpdateInput";
-import { UserAuthFindManyArgs } from "../../userAuth/base/UserAuthFindManyArgs";
-import { UserAuth } from "../../userAuth/base/UserAuth";
-import { UserAuthWhereUniqueInput } from "../../userAuth/base/UserAuthWhereUniqueInput";
 
 export class UserDocumentControllerBase {
   constructor(protected readonly service: UserDocumentService) {}
@@ -34,7 +31,13 @@ export class UserDocumentControllerBase {
     @common.Body() data: UserDocumentCreateInput
   ): Promise<UserDocument> {
     return await this.service.createUserDocument({
-      data: data,
+      data: {
+        ...data,
+
+        userId: {
+          connect: data.userId,
+        },
+      },
       select: {
         createdAt: true,
         id: true,
@@ -43,6 +46,12 @@ export class UserDocumentControllerBase {
         pdf2: true,
         pdf3: true,
         updatedAt: true,
+
+        userId: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -62,6 +71,12 @@ export class UserDocumentControllerBase {
         pdf2: true,
         pdf3: true,
         updatedAt: true,
+
+        userId: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -82,6 +97,12 @@ export class UserDocumentControllerBase {
         pdf2: true,
         pdf3: true,
         updatedAt: true,
+
+        userId: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (result === null) {
@@ -102,7 +123,13 @@ export class UserDocumentControllerBase {
     try {
       return await this.service.updateUserDocument({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          userId: {
+            connect: data.userId,
+          },
+        },
         select: {
           createdAt: true,
           id: true,
@@ -111,6 +138,12 @@ export class UserDocumentControllerBase {
           pdf2: true,
           pdf3: true,
           updatedAt: true,
+
+          userId: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -140,6 +173,12 @@ export class UserDocumentControllerBase {
           pdf2: true,
           pdf3: true,
           updatedAt: true,
+
+          userId: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -150,96 +189,5 @@ export class UserDocumentControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.Get("/:id/userId")
-  @ApiNestedQuery(UserAuthFindManyArgs)
-  async findUserId(
-    @common.Req() request: Request,
-    @common.Param() params: UserDocumentWhereUniqueInput
-  ): Promise<UserAuth[]> {
-    const query = plainToClass(UserAuthFindManyArgs, request.query);
-    const results = await this.service.findUserId(params.id, {
-      ...query,
-      select: {
-        createdAt: true,
-        id: true,
-        otp: true,
-        pan: true,
-        phone: true,
-        updatedAt: true,
-
-        userDetails: {
-          select: {
-            id: true,
-          },
-        },
-
-        userDocument: {
-          select: {
-            id: true,
-          },
-        },
-
-        verified: true,
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/userId")
-  async connectUserId(
-    @common.Param() params: UserDocumentWhereUniqueInput,
-    @common.Body() body: UserAuthWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      userId: {
-        connect: body,
-      },
-    };
-    await this.service.updateUserDocument({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/userId")
-  async updateUserId(
-    @common.Param() params: UserDocumentWhereUniqueInput,
-    @common.Body() body: UserAuthWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      userId: {
-        set: body,
-      },
-    };
-    await this.service.updateUserDocument({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/userId")
-  async disconnectUserId(
-    @common.Param() params: UserDocumentWhereUniqueInput,
-    @common.Body() body: UserAuthWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      userId: {
-        disconnect: body,
-      },
-    };
-    await this.service.updateUserDocument({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 }

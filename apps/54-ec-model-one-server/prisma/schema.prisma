@@ -8,42 +8,42 @@ generator client {
 }
 
 model UserAuth {
-  createdAt      DateTime      @default(now())
-  id             String        @id @default(cuid())
-  otp            String?
-  pan            String
-  phone          String
-  updatedAt      DateTime      @updatedAt
-  userDetails    UserDetail?   @relation(fields: [userDetailsId], references: [id])
-  userDetailsId  String?
-  userDocument   UserDocument? @relation(fields: [userDocumentId], references: [id])
-  userDocumentId String?
-  verified       Boolean?
+  createdAt    DateTime      @default(now())
+  id           String        @id @default(cuid())
+  otp          String?
+  pan          String
+  phone        String
+  updatedAt    DateTime      @updatedAt
+  userDetails  UserDetail?
+  userDocument UserDocument?
+  verified     Boolean?
 }
 
 model UserDetail {
   address   String
   city      String
-  createdAt DateTime   @default(now())
+  createdAt DateTime @default(now())
   dob       DateTime
   email     String
   gender    String
-  id        String     @id @default(cuid())
+  id        String   @id @default(cuid())
   name      String
   pan       String
   phone     String
   pinCode   String
-  updatedAt DateTime   @updatedAt
-  userId    UserAuth[]
+  updatedAt DateTime @updatedAt
+  userId    UserAuth @relation(fields: [userIdId], references: [id])
+  userIdId  String   @unique
 }
 
 model UserDocument {
-  createdAt DateTime   @default(now())
-  id        String     @id @default(cuid())
-  pan       String     @unique
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  pan       String   @unique
   pdf1      String?
   pdf2      String?
   pdf3      String?
-  updatedAt DateTime   @updatedAt
-  userId    UserAuth[]
+  updatedAt DateTime @updatedAt
+  userId    UserAuth @relation(fields: [userIdId], references: [id])
+  userIdId  String   @unique
 }

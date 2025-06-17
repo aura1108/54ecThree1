@@ -1,19 +1,13 @@
 import * as React from "react";
-
 import {
   Show,
   SimpleShowLayout,
   ShowProps,
   TextField,
   DateField,
-  ReferenceManyField,
-  Datagrid,
   ReferenceField,
-  BooleanField,
 } from "react-admin";
-
-import { USERDETAIL_TITLE_FIELD } from "./UserDetailTitle";
-import { USERDOCUMENT_TITLE_FIELD } from "../userDocument/UserDocumentTitle";
+import { USERAUTH_TITLE_FIELD } from "../userAuth/UserAuthTitle";
 
 export const UserDetailShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -31,35 +25,13 @@ export const UserDetailShow = (props: ShowProps): React.ReactElement => {
         <TextField label="phone" source="phone" />
         <TextField label="pinCode" source="pinCode" />
         <DateField source="updatedAt" label="Updated At" />
-        <ReferenceManyField
+        <ReferenceField
+          label="userId"
+          source="userauth.id"
           reference="UserAuth"
-          target="userDetailsId"
-          label="userAuths"
         >
-          <Datagrid rowClick="show" bulkActionButtons={false}>
-            <DateField source="createdAt" label="Created At" />
-            <TextField label="ID" source="id" />
-            <TextField label="otp" source="otp" />
-            <TextField label="pan" source="pan" />
-            <TextField label="phone" source="phone" />
-            <DateField source="updatedAt" label="Updated At" />
-            <ReferenceField
-              label="userDetails"
-              source="userdetail.id"
-              reference="UserDetail"
-            >
-              <TextField source={USERDETAIL_TITLE_FIELD} />
-            </ReferenceField>
-            <ReferenceField
-              label="userDocuments"
-              source="userdocument.id"
-              reference="UserDocument"
-            >
-              <TextField source={USERDOCUMENT_TITLE_FIELD} />
-            </ReferenceField>
-            <BooleanField label="verified" source="verified" />
-          </Datagrid>
-        </ReferenceManyField>
+          <TextField source={USERAUTH_TITLE_FIELD} />
+        </ReferenceField>
       </SimpleShowLayout>
     </Show>
   );

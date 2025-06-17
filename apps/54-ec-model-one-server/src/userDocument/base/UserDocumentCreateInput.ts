@@ -17,7 +17,7 @@ import {
   IsOptional,
   ValidateNested,
 } from "class-validator";
-import { UserAuthCreateNestedManyWithoutUserDocumentsInput } from "./UserAuthCreateNestedManyWithoutUserDocumentsInput";
+import { UserAuthWhereUniqueInput } from "../../userAuth/base/UserAuthWhereUniqueInput";
 import { Type } from "class-transformer";
 
 @InputType()
@@ -69,15 +69,12 @@ class UserDocumentCreateInput {
 
   @ApiProperty({
     required: true,
-    type: () => UserAuthCreateNestedManyWithoutUserDocumentsInput,
+    type: () => UserAuthWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => UserAuthCreateNestedManyWithoutUserDocumentsInput)
-  @IsOptional()
-  @Field(() => UserAuthCreateNestedManyWithoutUserDocumentsInput, {
-    nullable: true,
-  })
-  userId?: UserAuthCreateNestedManyWithoutUserDocumentsInput;
+  @Type(() => UserAuthWhereUniqueInput)
+  @Field(() => UserAuthWhereUniqueInput)
+  userId!: UserAuthWhereUniqueInput;
 }
 
 export { UserDocumentCreateInput as UserDocumentCreateInput };

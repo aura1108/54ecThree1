@@ -20,7 +20,6 @@ import { UserDetailFindUniqueArgs } from "./UserDetailFindUniqueArgs";
 import { CreateUserDetailArgs } from "./CreateUserDetailArgs";
 import { UpdateUserDetailArgs } from "./UpdateUserDetailArgs";
 import { DeleteUserDetailArgs } from "./DeleteUserDetailArgs";
-import { UserAuthFindManyArgs } from "../../userAuth/base/UserAuthFindManyArgs";
 import { UserAuth } from "../../userAuth/base/UserAuth";
 import { UserDetailService } from "../userDetail.service";
 @graphql.Resolver(() => UserDetail)
@@ -60,7 +59,13 @@ export class UserDetailResolverBase {
   ): Promise<UserDetail> {
     return await this.service.createUserDetail({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        userId: {
+          connect: args.data.userId,
+        },
+      },
     });
   }
 
@@ -71,7 +76,13 @@ export class UserDetailResolverBase {
     try {
       return await this.service.updateUserDetail({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          userId: {
+            connect: args.data.userId,
+          },
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -99,17 +110,18 @@ export class UserDetailResolverBase {
     }
   }
 
-  @graphql.ResolveField(() => [UserAuth], { name: "userId" })
-  async findUserId(
-    @graphql.Parent() parent: UserDetail,
-    @graphql.Args() args: UserAuthFindManyArgs
-  ): Promise<UserAuth[]> {
-    const results = await this.service.findUserId(parent.id, args);
+  @graphql.ResolveField(() => UserAuth, {
+    nullable: true,
+    name: "userId",
+  })
+  async getUserId(
+    @graphql.Parent() parent: UserDetail
+  ): Promise<UserAuth | null> {
+    const result = await this.service.getUserId(parent.id);
 
-    if (!results) {
-      return [];
+    if (!result) {
+      return null;
     }
-
-    return results;
+    return result;
   }
 }

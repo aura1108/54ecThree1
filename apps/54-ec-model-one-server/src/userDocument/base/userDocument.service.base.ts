@@ -51,14 +51,11 @@ export class UserDocumentServiceBase {
     return this.prisma.userDocument.delete(args);
   }
 
-  async findUserId(
-    parentId: string,
-    args: Prisma.UserAuthFindManyArgs
-  ): Promise<PrismaUserAuth[]> {
+  async getUserId(parentId: string): Promise<PrismaUserAuth | null> {
     return this.prisma.userDocument
-      .findUniqueOrThrow({
+      .findUnique({
         where: { id: parentId },
       })
-      .userId(args);
+      .userId();
   }
 }

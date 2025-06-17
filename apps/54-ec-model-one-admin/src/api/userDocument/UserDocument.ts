@@ -8,5 +8,5 @@ export type UserDocument = {
   pdf2: string | null;
   pdf3: string | null;
   updatedAt: Date;
-  userId?: Array<UserAuth>;
+  userId?: UserAuth;
 };

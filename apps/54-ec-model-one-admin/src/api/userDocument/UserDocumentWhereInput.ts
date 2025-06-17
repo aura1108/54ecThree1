@@ -1,6 +1,6 @@
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { UserAuthListRelationFilter } from "../userAuth/UserAuthListRelationFilter";
+import { UserAuthWhereUniqueInput } from "../userAuth/UserAuthWhereUniqueInput";
 
 export type UserDocumentWhereInput = {
   id?: StringFilter;
@@ -8,5 +8,5 @@ export type UserDocumentWhereInput = {
   pdf1?: StringNullableFilter;
   pdf2?: StringNullableFilter;
   pdf3?: StringNullableFilter;
-  userId?: UserAuthListRelationFilter;
+  userId?: UserAuthWhereUniqueInput;
 };

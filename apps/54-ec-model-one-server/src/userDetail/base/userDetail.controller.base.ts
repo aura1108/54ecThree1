@@ -22,9 +22,6 @@ import { UserDetail } from "./UserDetail";
 import { UserDetailFindManyArgs } from "./UserDetailFindManyArgs";
 import { UserDetailWhereUniqueInput } from "./UserDetailWhereUniqueInput";
 import { UserDetailUpdateInput } from "./UserDetailUpdateInput";
-import { UserAuthFindManyArgs } from "../../userAuth/base/UserAuthFindManyArgs";
-import { UserAuth } from "../../userAuth/base/UserAuth";
-import { UserAuthWhereUniqueInput } from "../../userAuth/base/UserAuthWhereUniqueInput";
 
 export class UserDetailControllerBase {
   constructor(protected readonly service: UserDetailService) {}
@@ -34,7 +31,13 @@ export class UserDetailControllerBase {
     @common.Body() data: UserDetailCreateInput
   ): Promise<UserDetail> {
     return await this.service.createUserDetail({
-      data: data,
+      data: {
+        ...data,
+
+        userId: {
+          connect: data.userId,
+        },
+      },
       select: {
         address: true,
         city: true,
@@ -48,6 +51,12 @@ export class UserDetailControllerBase {
         phone: true,
         pinCode: true,
         updatedAt: true,
+
+        userId: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -72,6 +81,12 @@ export class UserDetailControllerBase {
         phone: true,
         pinCode: true,
         updatedAt: true,
+
+        userId: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -97,6 +112,12 @@ export class UserDetailControllerBase {
         phone: true,
         pinCode: true,
         updatedAt: true,
+
+        userId: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (result === null) {
@@ -117,7 +138,13 @@ export class UserDetailControllerBase {
     try {
       return await this.service.updateUserDetail({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          userId: {
+            connect: data.userId,
+          },
+        },
         select: {
           address: true,
           city: true,
@@ -131,6 +158,12 @@ export class UserDetailControllerBase {
           phone: true,
           pinCode: true,
           updatedAt: true,
+
+          userId: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -165,6 +198,12 @@ export class UserDetailControllerBase {
           phone: true,
           pinCode: true,
           updatedAt: true,
+
+          userId: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -175,96 +214,5 @@ export class UserDetailControllerBase {
       }
       throw error;
     }
-  }
-
-  @common.Get("/:id/userId")
-  @ApiNestedQuery(UserAuthFindManyArgs)
-  async findUserId(
-    @common.Req() request: Request,
-    @common.Param() params: UserDetailWhereUniqueInput
-  ): Promise<UserAuth[]> {
-    const query = plainToClass(UserAuthFindManyArgs, request.query);
-    const results = await this.service.findUserId(params.id, {
-      ...query,
-      select: {
-        createdAt: true,
-        id: true,
-        otp: true,
-        pan: true,
-        phone: true,
-        updatedAt: true,
-
-        userDetails: {
-          select: {
-            id: true,
-          },
-        },
-
-        userDocument: {
-          select: {
-            id: true,
-          },
-        },
-
-        verified: true,
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @common.Post("/:id/userId")
-  async connectUserId(
-    @common.Param() params: UserDetailWhereUniqueInput,
-    @common.Body() body: UserAuthWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      userId: {
-        connect: body,
-      },
-    };
-    await this.service.updateUserDetail({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Patch("/:id/userId")
-  async updateUserId(
-    @common.Param() params: UserDetailWhereUniqueInput,
-    @common.Body() body: UserAuthWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      userId: {
-        set: body,
-      },
-    };
-    await this.service.updateUserDetail({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.Delete("/:id/userId")
-  async disconnectUserId(
-    @common.Param() params: UserDetailWhereUniqueInput,
-    @common.Body() body: UserAuthWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      userId: {
-        disconnect: body,
-      },
-    };
-    await this.service.updateUserDetail({
-      where: params,
-      data,
-      select: { id: true },
-    });
   }
 }

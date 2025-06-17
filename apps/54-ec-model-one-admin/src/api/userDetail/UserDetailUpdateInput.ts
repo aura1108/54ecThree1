@@ -1,4 +1,4 @@
-import { UserAuthUpdateManyWithoutUserDetailsInput } from "./UserAuthUpdateManyWithoutUserDetailsInput";
+import { UserAuthWhereUniqueInput } from "../userAuth/UserAuthWhereUniqueInput";
 
 export type UserDetailUpdateInput = {
   address?: string;
@@ -10,5 +10,5 @@ export type UserDetailUpdateInput = {
   pan?: string;
   phone?: string;
   pinCode?: string;
-  userId?: UserAuthUpdateManyWithoutUserDetailsInput;
+  userId?: UserAuthWhereUniqueInput;
 };

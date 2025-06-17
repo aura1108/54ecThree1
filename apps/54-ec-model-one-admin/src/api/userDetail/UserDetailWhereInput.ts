@@ -1,6 +1,6 @@
 import { StringFilter } from "../../util/StringFilter";
 import { DateTimeFilter } from "../../util/DateTimeFilter";
-import { UserAuthListRelationFilter } from "../userAuth/UserAuthListRelationFilter";
+import { UserAuthWhereUniqueInput } from "../userAuth/UserAuthWhereUniqueInput";
 
 export type UserDetailWhereInput = {
   address?: StringFilter;
@@ -13,5 +13,5 @@ export type UserDetailWhereInput = {
   pan?: StringFilter;
   phone?: StringFilter;
   pinCode?: StringFilter;
-  userId?: UserAuthListRelationFilter;
+  userId?: UserAuthWhereUniqueInput;
 };
