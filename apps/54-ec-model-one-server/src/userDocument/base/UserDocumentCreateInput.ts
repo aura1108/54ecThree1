@@ -11,12 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  IsString,
-  MaxLength,
-  IsOptional,
-  ValidateNested,
-} from "class-validator";
+import { IsString, MaxLength, ValidateNested } from "class-validator";
 import { UserAuthWhereUniqueInput } from "../../userAuth/base/UserAuthWhereUniqueInput";
 import { Type } from "class-transformer";
 
@@ -32,40 +27,31 @@ class UserDocumentCreateInput {
   pan!: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  pdf1?: string | null;
+  @Field(() => String)
+  pdf1!: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  pdf2?: string | null;
+  @Field(() => String)
+  pdf2!: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  pdf3?: string | null;
+  @Field(() => String)
+  pdf3!: string;
 
   @ApiProperty({
     required: true,
