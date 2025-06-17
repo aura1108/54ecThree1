@@ -4,9 +4,9 @@ export type UserDocument = {
   createdAt: Date;
   id: string;
   pan: string;
-  pdf1: string | null;
-  pdf2: string | null;
-  pdf3: string | null;
+  pdf1: string;
+  pdf2: string;
+  pdf3: string;
   updatedAt: Date;
   userId?: UserAuth;
 };

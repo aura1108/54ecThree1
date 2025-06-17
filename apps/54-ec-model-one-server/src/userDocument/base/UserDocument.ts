@@ -11,13 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  IsDate,
-  IsString,
-  MaxLength,
-  IsOptional,
-  ValidateNested,
-} from "class-validator";
+import { IsDate, IsString, MaxLength, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 import { UserAuth } from "../../userAuth/base/UserAuth";
 
@@ -49,40 +43,31 @@ class UserDocument {
   pan!: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  pdf1!: string | null;
+  @Field(() => String)
+  pdf1!: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  pdf2!: string | null;
+  @Field(() => String)
+  pdf2!: string;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: String,
   })
   @IsString()
   @MaxLength(1000)
-  @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  pdf3!: string | null;
+  @Field(() => String)
+  pdf3!: string;
 
   @ApiProperty({
     required: true,

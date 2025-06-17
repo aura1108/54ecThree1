@@ -44,7 +44,7 @@ class UserDocumentUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  pdf1?: string | null;
+  pdf1?: string;
 
   @ApiProperty({
     required: false,
@@ -56,7 +56,7 @@ class UserDocumentUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  pdf2?: string | null;
+  pdf2?: string;
 
   @ApiProperty({
     required: false,
@@ -68,7 +68,7 @@ class UserDocumentUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  pdf3?: string | null;
+  pdf3?: string;
 
   @ApiProperty({
     required: false,

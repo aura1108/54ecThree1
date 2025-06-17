@@ -40,9 +40,9 @@ model UserDocument {
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
   pan       String   @unique
-  pdf1      String?
-  pdf2      String?
-  pdf3      String?
+  pdf1      String
+  pdf2      String
+  pdf3      String
   updatedAt DateTime @updatedAt
   userId    UserAuth @relation(fields: [userIdId], references: [id])
   userIdId  String   @unique
